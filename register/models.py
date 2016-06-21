@@ -6,13 +6,18 @@ from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import BaseUserManager
 
+import uuid
 # Create your models here.
 
 
 class Customer(AbstractBaseUser):
-    email = models.EmailField(unique=True, primary_key=True)
+    user_id = models.UUIDField(
+        unique=True,
+        primary_key=True,
+        default=uuid.uuid4)
+    email = models.EmailField(unique=True)
     date_joined = models.DateTimeField(default=timezone.now)
-    date_of_birth = models.DateField()
+    date_of_birth = models.DateField(null=True)
     is_staff = models.BooleanField(
         default=False,
         help_text='Designates whether the customer can log into this admin.')
@@ -20,7 +25,6 @@ class Customer(AbstractBaseUser):
         default=False,
         help_text='Designates whether this customer should be treated as active.')
 
-    USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['date_of_birth']
 
     def get_full_name(self):
