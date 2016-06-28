@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+import datetime
+
 
 # Application definition
 
@@ -42,9 +44,19 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-    #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    'PAGE_SIZE': 10
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ),
 }
+
+AUTH_USER_MODEL = 'register.Customer'
+
+JWT_AUTH = {
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_SECRET_KEY': 'a$ecretK3y',
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600)
+}
+
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
