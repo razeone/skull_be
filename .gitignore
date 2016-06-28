@@ -37,4 +37,4 @@ var/
 client/node/node_modules
 
 #Migrations
-register/migrations/
+*/migrations/
