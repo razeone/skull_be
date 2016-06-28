@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from rest_framework import routers
-from register import views
 from rest_framework_jwt.views import obtain_jwt_token
+
+from register import views
 
 router = routers.DefaultRouter()
 router.register(r'customers', views.CustomerViewSet)
